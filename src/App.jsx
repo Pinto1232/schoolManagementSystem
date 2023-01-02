@@ -1,13 +1,19 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
+import SignUpLoginForm from './components/LoginForm/LoginForm'
+import { BrowserRouter as Router, useNavigate } from 'react-router-dom'
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
     <div className="App">
-   
+      <SignUpLoginForm />
+      <Router>
+         <dashboard />
+      </Router>
     </div>
   )
 }
