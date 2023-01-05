@@ -23,9 +23,11 @@ function SignUpLoginForm() {
 
     const validateForm = () => {
         // check that the email and password fields are not empty
-        if (!formData.email || !formData.password) {
-            setErrorMessage('Please enter your email and password');
+        if (!formData.email) {
+            setErrorMessage('Please enter your email');
             return false;
+        }else if(!formData.password){
+            setErrorMessage('Please enter your password');
         }
         return true;
     }
@@ -35,31 +37,35 @@ function SignUpLoginForm() {
     /* const history = useHistory();  */
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (validateForm()) {
+        try {
             if (validateForm()) {
-                const { email, password } = formData;
-                const body = { email, password };
-                const options = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(body)
-                };
-                fetch('/api/login', options)
-                    .then(res => res.json())
-                    .then(data => {
-                        // handle the response from the server
-                        if (res.status === 200) {
-                            // the request was successful, so display a success message
-                            history.push('/dashboard');
-                        } else {
-                            // the request was not successful, so display an error message
-                            setMessage(`Error: ${data.message}`);
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
+                if (validateForm()) {
+                    const { email, password } = formData;
+                    const body = { email, password };
+                    const options = {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(body)
+                    };
+                    fetch('/api/login', options)
+                        .then(res => res.json())
+                        .then(data => {
+                            // handle the response from the server
+                            if (res.status === 200) {
+                                // the request was successful, so display a success message
+                                history.push('/dashboard');
+                            } else {
+                                // the request was not successful, so display an error message
+                                setMessage(`Error: ${data.message}`);
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                }
             }
+        } catch (error) {
+            console.log(error, "Log my data");
         }
     }
 
@@ -70,26 +76,27 @@ function SignUpLoginForm() {
         </div>
         <form onSubmit={handleSubmit}>
             {formType === 'signup' ? (
-                <h2 className='text-3xl'>Sign Up</h2>
+                <h2>Sign Up</h2>
             ) : (
                 <h2>Log In</h2>
             )}
             {errorMessage && <p className="error-message">{errorMessage}</p>}
-            <label htmlFor="email">Email</label>
             <input
                 type="email"
                 id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
+                placeholder="email"
             />
-            <label htmlFor="password">Password</label>
+            
             <input
                 type="password"
                 id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
+                placeholder="password"
             />
             <button type="submit">
                 {formType === 'signup' ? 'Sign Up' : 'Log In'}
