@@ -1,5 +1,6 @@
 import React, { useState, useHistory  } from 'react';
 import './login.css'
+import MyBrandLogo from '../../assets/Logo.png'
 
 
 function SignUpLoginForm() {
@@ -63,9 +64,13 @@ function SignUpLoginForm() {
     }
 
     return (
+        <>
+        <div className='logo-block'>
+           <img className='logo' src={MyBrandLogo} />
+        </div>
         <form onSubmit={handleSubmit}>
             {formType === 'signup' ? (
-                <h2>Sign Up</h2>
+                <h2 className='text-3xl'>Sign Up</h2>
             ) : (
                 <h2>Log In</h2>
             )}
@@ -79,7 +84,7 @@ function SignUpLoginForm() {
                 onChange={handleInputChange}
             />
             <label htmlFor="password">Password</label>
-            <inputnp
+            <input
                 type="password"
                 id="password"
                 name="password"
@@ -97,6 +102,7 @@ function SignUpLoginForm() {
                 )}
             </p>
         </form>
+        </>
     );
 }
 
