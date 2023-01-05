@@ -31,7 +31,7 @@ function SignUpLoginForm() {
 
     
 
-    const history = useHistory(); 
+    /* const history = useHistory();  */
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
@@ -79,7 +79,7 @@ function SignUpLoginForm() {
                 onChange={handleInputChange}
             />
             <label htmlFor="password">Password</label>
-            <input
+            <inputnp
                 type="password"
                 id="password"
                 name="password"
