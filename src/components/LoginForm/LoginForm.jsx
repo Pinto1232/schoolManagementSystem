@@ -47,7 +47,7 @@ function SignUpLoginForm() {
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(body)
                     };
-                    fetch('/api/login', options)
+                    fetch('mongodb://localhost:27017/SchoolDbs/login', options)
                         .then(res => res.json())
                         .then(data => {
                             // handle the response from the server
