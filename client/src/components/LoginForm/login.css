@@ -1,4 +1,10 @@
-.logo{
+.logo-block{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-block .logo{
     max-width: 30%;
 }
 
@@ -18,21 +24,22 @@ form {
     background-color: white;
 }
 
-form label {
-    display: block;
-    margin-bottom: 0.5em;
+form h2{
+    font-size: 25px;
+    font-weight: bold;
 }
 
 form input {
     width: 80%;
     padding: 0.5em;
     font-size: 1em;
-    outline: none;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
+    background-color: rgb(225, 225, 224);
+    border-radius: 2px;
 }
 
-form button {
-    background-color: #00bfff;
+.btn_submit {
+    background-color: #00bfff!important;
     color: white;
     font-size: 1em;
     font-weight: bold;
@@ -43,6 +50,7 @@ form button {
     width: 300px;
     max-width: 100%;
 }
+
 
 form h2 {
     margin-bottom: 1em;

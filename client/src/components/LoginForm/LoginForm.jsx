@@ -43,32 +43,24 @@ function SignUpLoginForm() {
         try {
            if (validateForm()) {
                 if (validateForm()) {
-                    const { email, password } = formData;
-                    const body = { email, password };
-                    const options = {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(body)
-                    };
-                    fetch('http://localhost:8080/api/users', options)
-                        .then(res => res.json())
-                        .then(data => {
-                            // handle the response from the server
-                            if (res.status === 200) {
-                                // the request was successful, so display a success message
-                                navigate('/dashboard')
-                            } else {
-                                // the request was not successful, so display an error message
-                                setMessage(`Error: ${data.message}`);
-                            }
-                        })
-                        .catch(error => {
-                            console.log(error);
-                        });
+                const { email, password } = formData;
+                const response = await fetch('http://localhost:8080/api/users/register', {
+                method: 'POST',       
+                headers: {
+                            'Content-Type': 'application/json',
+                        },
+                body: JSON.stringify({
+                            email,
+                            password,
+                        }),
+                    })
+                    const data = await response.json() 
+                    console.log(data);
+                   
                 }
             } 
         } catch (error) {
-            console.log(error, "Log my data");
+            console.log(error);
         }
     }
 
@@ -93,6 +85,7 @@ function SignUpLoginForm() {
                 placeholder="email"
             />
             
+            
             <input
                 type="password"
                 id="password"
@@ -101,7 +94,7 @@ function SignUpLoginForm() {
                 onChange={handleInputChange}
                 placeholder="password"
             />
-            <button type="submit">
+            <button className='btn_submit' type="submit">
                 {formType === 'signup' ? 'Sign Up' : 'Log In'}
             </button>
             <p>
