@@ -3,8 +3,9 @@ const app = express()
 const cors = require('cors')
 
 app.use(cors())
+app.use(express.json())
 
-app.post('/api/register', (req, res) => {
+app.post('/api/users/register', (req, res) => {
     console.log(req.body);
     res.json({ status: 'ok'})
 })
