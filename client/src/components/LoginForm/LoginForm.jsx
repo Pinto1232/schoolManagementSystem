@@ -1,8 +1,10 @@
-import React, { useState, useHistory  } from 'react';
+import React, { useState } from 'react';
 import './login.css'
 import MyBrandLogo from '../../assets/Logo.png'
+import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 
-
+let res;
 function SignUpLoginForm() {
   
     const [formType, setFormType] = useState('signup'); // track whether we're displaying the signup or login form
@@ -12,6 +14,7 @@ function SignUpLoginForm() {
     });
     const [errorMessage, setErrorMessage] = useState(''); // will display an error message if the sign up or login fails
     
+    const navigate = useNavigate();
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -21,7 +24,7 @@ function SignUpLoginForm() {
         });
     }
 
-    const validateForm = () => {
+     const validateForm = () => {
         // check that the email and password fields are not empty
         if (!formData.email) {
             setErrorMessage('Please enter your email');
@@ -30,15 +33,15 @@ function SignUpLoginForm() {
             setErrorMessage('Please enter your password');
         }
         return true;
-    }
+    } 
 
     
-
-    /* const history = useHistory();  */
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+
+        
         try {
-            if (validateForm()) {
+           if (validateForm()) {
                 if (validateForm()) {
                     const { email, password } = formData;
                     const body = { email, password };
@@ -47,23 +50,23 @@ function SignUpLoginForm() {
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(body)
                     };
-                    fetch('mongodb://localhost:27017/SchoolDbs/login', options)
+                    fetch('http://localhost:8080/api/users', options)
                         .then(res => res.json())
                         .then(data => {
                             // handle the response from the server
                             if (res.status === 200) {
                                 // the request was successful, so display a success message
-                                history.push('/dashboard');
+                                navigate('/dashboard')
                             } else {
                                 // the request was not successful, so display an error message
                                 setMessage(`Error: ${data.message}`);
                             }
                         })
                         .catch(error => {
-                            console.error(error);
+                            console.log(error);
                         });
                 }
-            }
+            } 
         } catch (error) {
             console.log(error, "Log my data");
         }
