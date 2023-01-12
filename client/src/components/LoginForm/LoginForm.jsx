@@ -4,7 +4,6 @@ import MyBrandLogo from '../../assets/Logo.png'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 
-let res;
 function SignUpLoginForm() {
   
     const [formType, setFormType] = useState('signup'); // track whether we're displaying the signup or login form
@@ -55,13 +54,14 @@ function SignUpLoginForm() {
                         }),
                     })
                     const data = await response.json() 
-                    console.log(data);
-                   
+                    console.log(data, "Data");
                 }
             } 
         } catch (error) {
             console.log(error);
         }
+
+        
     }
 
     return (
